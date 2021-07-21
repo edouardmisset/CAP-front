@@ -5,10 +5,10 @@ export default function NavBar() {
     <nav>
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/home">Home</Link>
         </li>
         <li>
-          <Link to="/ascentForm">+ Ascent ➕</Link>
+          <Link to="/ascentForm">Add Ascent</Link>
         </li>
         <li>
           <Link to="/dashboard">Dashboard</Link>
