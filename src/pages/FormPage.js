@@ -42,7 +42,7 @@ export default function FormPage() {
 
   return (
     <form id="form-ascent" onSubmit={handleSubmit(onSubmit)}>
-      <label htmlFor="routeName">
+      <label className="label" htmlFor="routeName">
         Route Name
         <input
           {...register('routeName', {
@@ -54,7 +54,7 @@ export default function FormPage() {
           className="form-input"
         />
       </label>
-      <label htmlFor="topoGrade">
+      <label className="label" htmlFor="topoGrade">
         Topo Grade
         <input
           {...register('topoGrade', {
@@ -65,7 +65,7 @@ export default function FormPage() {
           className="form-input"
         />
       </label>
-      <label htmlFor="numberOfTries">
+      <label className="label" htmlFor="numberOfTries">
         Number of tries
         <input
           {...register('numberOfTries', {
@@ -82,14 +82,14 @@ export default function FormPage() {
           className="form-input"
         />
       </label>
-      <label htmlFor="routeOrBoulder">
+      <label className="label" htmlFor="routeOrBoulder">
         Route or Boulder
         <select {...register('routeOrBoulder')} defaultValue="route">
           <option value="route">Route</option>
           <option value="boulder">Boulder</option>
         </select>
       </label>
-      <label htmlFor="crag">
+      <label className="label" htmlFor="crag">
         Crag
         <input
           {...register('crag', {
@@ -101,7 +101,7 @@ export default function FormPage() {
           className="form-input"
         />
       </label>
-      <label htmlFor="climber">
+      <label className="label" htmlFor="climber">
         Climber
         <input
           {...register('climber', {
@@ -113,7 +113,7 @@ export default function FormPage() {
           className="form-input"
         />
       </label>
-      <label htmlFor="date">
+      <label className="label" htmlFor="date">
         Date
         <input
           {...register('date', {
@@ -129,6 +129,7 @@ export default function FormPage() {
         disabled={submitting}
         onSubmit={handleSubmit(onSubmit)}
         form="form-ascent"
+        className="btn save"
       >
         Save
       </button>
