@@ -8,7 +8,7 @@ export default function NavBar() {
           <Link to="/home">Home</Link>
         </li>
         <li>
-          <Link to="/ascentForm">Add Ascent</Link>
+          <Link to="/form">Add Ascent</Link>
         </li>
         <li>
           <Link to="/dashboard">Dashboard</Link>

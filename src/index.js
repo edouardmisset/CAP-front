@@ -1,13 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
-import history from './history'
+import './sanitize.css'
 import './index.css'
 import App from './App'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router history={history}>
+    <Router>
       <App />
     </Router>
   </React.StrictMode>,
