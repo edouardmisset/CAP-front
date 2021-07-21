@@ -26,14 +26,14 @@ export default function FormPage() {
   const onSubmit = (data) => {
     setSubmitting(true)
 
-    API.post('/ascent', data)
+    API.post('/ascents', data)
       .then((res) => {
         addToast(`Well done for climbing ${res.data.routeName}. Congrats 🎉`, {
           appearance: 'success',
         })
       })
       .catch(() => {
-        addToast('A problem occured. We cannot reccord this accent. 😕', {
+        addToast('A problem occured. We could not reccord this accent. 😕', {
           appearance: 'error',
         })
       })
