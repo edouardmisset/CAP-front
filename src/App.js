@@ -1,11 +1,20 @@
+import { ToastProvider } from 'react-toast-notifications'
+import Footer from './components/Footer'
+import Header from './components/Header'
+import Main from './components/Main'
+
 export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-      </header>
-    </div>
+    <ToastProvider
+      autoDismiss
+      autoDismissTimeout={3000}
+      placement="bottom-center"
+    >
+      {/* <CurrentUserContextProvider> */}
+      <Header />
+      <Main />
+      <Footer />
+      {/* </CurrentUserContextProvider> */}
+    </ToastProvider>
   )
 }
