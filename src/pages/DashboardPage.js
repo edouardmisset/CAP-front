@@ -42,10 +42,10 @@ export default function DashboardPage() {
   }, [])
 
   return (
-    <div className="graphs">
-      <p>Hi</p>
+    <div className="charts-container">
       {!!Object.keys(ascentsByGradeByStyleOptions).length && (
         <HighchartsReact
+          className="chart"
           highcharts={Highcharts}
           options={ascentsByGradeByStyleOptions}
         />

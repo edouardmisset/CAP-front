@@ -5,11 +5,7 @@ import Main from './components/Main'
 
 export default function App() {
   return (
-    <ToastProvider
-      autoDismiss
-      autoDismissTimeout={3000}
-      placement="bottom-center"
-    >
+    <ToastProvider autoDismiss autoDismissTimeout={5000} placement="top-right">
       {/* <CurrentUserContextProvider> */}
       <Header />
       <Main />

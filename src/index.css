@@ -3,7 +3,8 @@
   1. Global styles
   2. typography
   3. Layout
-  4. Components
+  4. Utilities
+  5. Components
 */
 
 /* ================
@@ -18,7 +19,7 @@
   --yellow1: hsl(25, 85%, 70%);
   --yellow2: hsl(45, 99%, 51%);
   --solar: hsl(35, 54%, 78%);
-  --blue1: hsl(210, 100%, 74%);
+  --blue1: hsl(210, 80%, 74%);
   --blue2: hsl(210, 92%, 67%);
   --blue3: hsl(210, 84%, 59%);
 
@@ -44,9 +45,9 @@
   --text-secondary: var(--grey5);
 
   --bg-primary: var(--grey0);
-  --bg-secondary: var(--grey1);
+  --bg-secondary: var(--blue1);
 
-  --accentColor: var(--grey6);
+  --accent-color: var(--blue2);
   --transition-speed: 300ms;
 
   --default-font-size: 16px;
@@ -73,6 +74,44 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+header {
+  display: grid;
+  place-items: center;
+  margin-bottom: 1em;
+  background: var(--bg-secondary);
+}
+
+q {
+  quotes: '“' '”';
+}
+
+p {
+  line-height: 1.5;
+  word-break: break-word;
+  text-align: justify; /* Justifies text */
+  hyphens: auto; /* Hypenation on auto */
+  max-width: 60ch; /* max width of a paragraph should be around 60 characters */
+}
+
+footer {
+  display: grid;
+  place-items: center;
+  padding: 1em 0;
+  margin-top: 1em;
+  background: var(--bg-secondary);
+}
+
+h1,
+h2,
+h3 {
+  margin: 1rem 0;
+  padding: 0;
+}
+
+nav {
+  background: var(--dark);
+}
+
 /* ================
 Typography
 ================*/
@@ -94,10 +133,148 @@ code {
   font-family: var(--font-family-monospace);
 }
 
+.title {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
 /* ================
   Layout
   ================*/
 
+#root {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+main {
+  display: grid;
+  place-items: center;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-bar {
+  width: 100%;
+}
+
+.nav-items {
+  display: flex;
+  justify-content: space-around;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  width: clamp(40ch, 50%, 80ch);
+  gap: 1rem;
+}
+
+form > label {
+  display: flex;
+  justify-content: space-between;
+  /* margin: 0.5rem 0; */
+}
+
+/* ================
+  Utilities
+  ================*/
+
+.super-center {
+  display: grid;
+  place-items: center;
+}
+
 /* ================
   Components
   ================*/
+
+.logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 5em;
+}
+
+.nav-item > .nav-link {
+  display: inline-block;
+  padding: 0.5em 1em;
+  margin: 0.25em;
+  color: var(--light);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.nav-bar .nav-item:hover .nav-link {
+  background: var(--light);
+  border-radius: 0.5rem;
+  color: var(--dark);
+}
+
+form {
+  background: var(--light);
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.label > input,
+.label > select {
+  width: clamp(15ch, 40%, 30ch);
+}
+
+button {
+  margin: 0;
+  box-sizing: border-box;
+  box-shadow: none;
+  height: 2.5em;
+  text-indent: 0px;
+  text-shadow: none;
+  font-style: normal;
+  letter-spacing: normal;
+  word-spacing: normal;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
+.btn {
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  line-height: 1.5;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  outline: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active {
+  background-color: var(--accent-color);
+}
+
+.btn:disabled {
+  background: var(--secondary);
+}
+
+.charts-container {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(auto, 1fr));
+}
+
+.highcharts-credits {
+  display: none;
+}

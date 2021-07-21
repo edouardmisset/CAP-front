@@ -2,16 +2,22 @@ import { Link } from 'react-router-dom'
 
 export default function NavBar() {
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/home">Home</Link>
+    <nav className="nav-bar">
+      <ul className="nav-items">
+        <li className="nav-item">
+          <Link className="nav-link" to="/home">
+            Home
+          </Link>
         </li>
-        <li>
-          <Link to="/form">Add Ascent</Link>
+        <li className="nav-item">
+          <Link className="nav-link" to="/form">
+            Add Ascent
+          </Link>
         </li>
-        <li>
-          <Link to="/dashboard">Dashboard</Link>
+        <li className="nav-item">
+          <Link className="nav-link" to="/dashboard">
+            Dashboard
+          </Link>
         </li>
       </ul>
     </nav>
