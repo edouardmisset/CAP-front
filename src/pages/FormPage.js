@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useToasts } from 'react-toast-notifications'
 import API from '../APIClient'
+import FileInput from '../components/FileInput'
 
 export default function FormPage() {
   const [submitting, setSubmitting] = useState(false)
@@ -21,7 +22,9 @@ export default function FormPage() {
     },
   })
 
-  const setSubmittingFalse = () => setSubmitting(false)
+  const handleFile = (file) => {
+    console.log(file)
+  }
 
   const onSubmit = (data) => {
     setSubmitting(true)
@@ -37,102 +40,105 @@ export default function FormPage() {
           appearance: 'error',
         })
       })
-      .finally(setSubmittingFalse)
+      .finally(() => setSubmitting(false))
   }
 
   return (
-    <form id="form-ascent" onSubmit={handleSubmit(onSubmit)}>
-      <label className="label" htmlFor="routeName">
-        Route Name
-        <input
-          {...register('routeName', {
-            required: { value: true, message: 'required' },
-          })}
-          autoFocus
-          placeholder="Biographie"
+    <>
+      <form id="form-ascent" onSubmit={handleSubmit(onSubmit)}>
+        <label className="label" htmlFor="routeName">
+          Route Name
+          <input
+            {...register('routeName', {
+              required: { value: true, message: 'required' },
+            })}
+            autoFocus
+            placeholder="Biographie"
+            disabled={submitting}
+            className="form-input"
+          />
+        </label>
+        <label className="label" htmlFor="topoGrade">
+          Topo Grade
+          <input
+            {...register('topoGrade', {
+              required: { value: true, message: 'required' },
+            })}
+            placeholder="9a+"
+            disabled={submitting}
+            className="form-input"
+          />
+        </label>
+        <label className="label" htmlFor="numberOfTries">
+          Number of tries
+          <input
+            {...register('numberOfTries', {
+              required: { value: true, message: 'required' },
+              min: {
+                value: 1,
+                message:
+                  'Only Chuck Norris can climb a rock in less than one try. Are you Chuck?',
+              },
+            })}
+            type="number"
+            placeholder="3"
+            disabled={submitting}
+            className="form-input"
+          />
+        </label>
+        <label className="label" htmlFor="routeOrBoulder">
+          Route or Boulder
+          <select {...register('routeOrBoulder')} defaultValue="route">
+            <option value="route">Route</option>
+            <option value="boulder">Boulder</option>
+          </select>
+        </label>
+        <label className="label" htmlFor="crag">
+          Crag
+          <input
+            {...register('crag', {
+              required: { value: true, message: 'required' },
+            })}
+            type="text"
+            placeholder="Ceüse"
+            disabled={submitting}
+            className="form-input"
+          />
+        </label>
+        <label className="label" htmlFor="climber">
+          Climber
+          <input
+            {...register('climber', {
+              required: { value: true, message: 'required' },
+            })}
+            type="text"
+            placeholder="Chris Sharma"
+            disabled={submitting}
+            className="form-input"
+          />
+        </label>
+        <label className="label" htmlFor="date">
+          Date
+          <input
+            {...register('date', {
+              required: { value: true, message: 'required' },
+            })}
+            type="date"
+            disabled={submitting}
+            className="form-input"
+          />
+        </label>
+        <button
+          type="submit"
           disabled={submitting}
-          className="form-input"
-        />
-      </label>
-      <label className="label" htmlFor="topoGrade">
-        Topo Grade
-        <input
-          {...register('topoGrade', {
-            required: { value: true, message: 'required' },
-          })}
-          placeholder="9a+"
-          disabled={submitting}
-          className="form-input"
-        />
-      </label>
-      <label className="label" htmlFor="numberOfTries">
-        Number of tries
-        <input
-          {...register('numberOfTries', {
-            required: { value: true, message: 'required' },
-            min: {
-              value: 1,
-              message:
-                'Only Chuck Norris can climb a rock in less than one try. Are you Chuck?',
-            },
-          })}
-          type="number"
-          placeholder="3"
-          disabled={submitting}
-          className="form-input"
-        />
-      </label>
-      <label className="label" htmlFor="routeOrBoulder">
-        Route or Boulder
-        <select {...register('routeOrBoulder')} defaultValue="route">
-          <option value="route">Route</option>
-          <option value="boulder">Boulder</option>
-        </select>
-      </label>
-      <label className="label" htmlFor="crag">
-        Crag
-        <input
-          {...register('crag', {
-            required: { value: true, message: 'required' },
-          })}
-          type="text"
-          placeholder="Ceüse"
-          disabled={submitting}
-          className="form-input"
-        />
-      </label>
-      <label className="label" htmlFor="climber">
-        Climber
-        <input
-          {...register('climber', {
-            required: { value: true, message: 'required' },
-          })}
-          type="text"
-          placeholder="Chris Sharma"
-          disabled={submitting}
-          className="form-input"
-        />
-      </label>
-      <label className="label" htmlFor="date">
-        Date
-        <input
-          {...register('date', {
-            required: { value: true, message: 'required' },
-          })}
-          type="date"
-          disabled={submitting}
-          className="form-input"
-        />
-      </label>
-      <button
-        type="submit"
-        disabled={submitting}
-        onSubmit={handleSubmit(onSubmit)}
-        form="form-ascent"
-        className="btn save"
-      >
-        Save
-      </button>
-    </form>
+          onSubmit={handleSubmit(onSubmit)}
+          form="form-ascent"
+          className="btn save"
+        >
+          Save
+        </button>
+      </form>
+      <FileInput className="" value="" onChange={handleFile} />
+    </>
   )
 }
