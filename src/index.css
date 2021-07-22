@@ -350,3 +350,8 @@ thead td:first-child {
   font-family: var(--font-family-serif);
   font-size: var(--default-font-size);
 }
+
+#file-input-label {
+  display: inline-block;
+  margin-top: 1rem;
+}
