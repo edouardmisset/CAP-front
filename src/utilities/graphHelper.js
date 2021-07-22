@@ -3,6 +3,9 @@ const graphOptions = {
   title: {
     text: 'Ascent by style',
   },
+  chart: {
+    // backgroundColor: '#444',
+  },
   series: [
     {
       type: 'column',
@@ -29,6 +32,14 @@ const graphOptions = {
   },
   yAxis: {
     title: { text: 'Number of ascents' },
+  },
+  plotOptions: {
+    column: {
+      stacking: 'normal',
+      dataLabels: {
+        enabled: true,
+      },
+    },
   },
 }
 
