@@ -27,7 +27,7 @@ export default function DashboardPage() {
         y.map((series) => ({
           // ...previousOptions.series[index],
           type: 'column',
-          data: series.data.map((obj) => Object.values(obj)[0]),
+          data: series.data,
           name: series.name,
           color: series.color,
         })),
