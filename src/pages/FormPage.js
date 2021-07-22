@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form'
 import { useToasts } from 'react-toast-notifications'
 import API from '../APIClient'
 import FileInput from '../components/FileInput'
+import parseCSV from '../utilities/parseCSV'
 
 export default function FormPage() {
   const [submitting, setSubmitting] = useState(false)
@@ -22,8 +23,9 @@ export default function FormPage() {
     },
   })
 
-  const handleFile = (file) => {
-    console.log(file)
+  const handleFile = async ([file]) => {
+    // console.log(file)
+    console.log(await parseCSV(file))
   }
 
   const onSubmit = (data) => {
