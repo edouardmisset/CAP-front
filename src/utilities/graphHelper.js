@@ -3,6 +3,9 @@ const graphOptions = {
   title: {
     text: 'Ascent by style',
   },
+  chart: {
+    // backgroundColor: '#444',
+  },
   series: [
     {
       type: 'column',
