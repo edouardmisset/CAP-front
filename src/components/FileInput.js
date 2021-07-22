@@ -7,8 +7,8 @@ const FileInput = ({ value, onChange = noop, ...rest }) => (
     {!!value.length && (
       <div>Selected files: {value.map((f) => f.name).join(', ')}</div>
     )}
-    <label htmlFor="file-input">
-      Click to select some files...
+    <label id="file-input-label" className="btn" htmlFor="file-input">
+      Or click to select a file...
       <input
         {...rest}
         style={{ display: 'none' }}
