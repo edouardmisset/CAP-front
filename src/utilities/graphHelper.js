@@ -30,6 +30,14 @@ const graphOptions = {
   yAxis: {
     title: { text: 'Number of ascents' },
   },
+  plotOptions: {
+    column: {
+      stacking: 'normal',
+      dataLabels: {
+        enabled: true,
+      },
+    },
+  },
 }
 
 export { graphOptions }
