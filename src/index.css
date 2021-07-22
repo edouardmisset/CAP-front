@@ -83,6 +83,8 @@ header {
 
 q {
   quotes: '“' '”';
+  font-family: var(--font-family-serif);
+  font-size: var(--default-font-size);
 }
 
 p {
@@ -106,6 +108,7 @@ h2,
 h3 {
   margin: 1rem 0;
   padding: 0;
+  text-align: center;
 }
 
 nav {
@@ -199,6 +202,8 @@ form > label {
   max-width: 5em;
 }
 
+/** Nav bar */
+
 .nav-item > .nav-link {
   display: inline-block;
   padding: 0.5em 1em;
@@ -213,6 +218,8 @@ form > label {
   border-radius: 0.5rem;
   color: var(--dark);
 }
+
+/** Form */
 
 form {
   background: var(--light);
@@ -298,21 +305,14 @@ td {
   height: 40px;
   text-align: center;
   vertical-align: middle;
-  background: black;
+  background: var(--bg-primary);
   scroll-snap-align: start;
-  counter-increment: td;
 }
 
-tr {
-  counter-increment: tr;
-}
-
-tbody td:before {
-  content: counter(tr) '-' counter(td);
-}
-
-tbody > tr:hover td {
-  background: gray;
+thead > tr > th {
+  background: var(--dark);
+  color: var(--light);
+  font-weight: bold;
 }
 
 thead td {
@@ -320,6 +320,16 @@ thead td {
   top: 0;
   box-shadow: 0 1px white;
 }
+
+tbody > tr:nth-child(odd) td {
+  background: var(--grey2);
+}
+
+tbody > tr:hover td {
+  background: var(--dark);
+  color: var(--light);
+}
+
 tr > td:first-child {
   position: sticky;
   left: 0;
@@ -328,4 +338,15 @@ tr > td:first-child {
 thead td:first-child {
   z-index: 1;
   box-shadow: 1px 1px white;
+}
+
+.table-filter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.author {
+  font-family: var(--font-family-serif);
+  font-size: var(--default-font-size);
 }
