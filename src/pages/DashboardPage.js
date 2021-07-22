@@ -1,33 +1,36 @@
 import axios from 'axios'
 import dayjs from 'dayjs'
-// import Highcharts from 'highcharts'
-// import HighchartsReact from 'highcharts-react-official'
+import Highcharts from 'highcharts'
+import HighchartsReact from 'highcharts-react-official'
 import { useEffect, useState } from 'react'
 import API from '../APIClient'
-// import { graphOptions } from '../utilities/graphHelper'
+import { graphOptions } from '../utilities/graphHelper'
 
 const { CancelToken } = axios
 
 export default function DashboardPage() {
   const [ascentList, setAscentList] = useState([])
-  // const [ascentsByGradeByStyleOptions, setAscentsByGradeByStyleOptions] =
-  // useState(graphOptions)
+  const [ascentsByGradeByStyleOptions, setAscentsByGradeByStyleOptions] =
+    useState(graphOptions)
 
-  // const setChartData = (title, y, x) =>
-  //   setAscentsByGradeByStyleOptions((previousOptions) => ({
-  //     ...previousOptions,
-  //     title,
-  //     xAxis: [
-  //       {
-  //         categories: x,
-  //       },
-  //     ],
-  //     series: [...previousOptions.series].map((series, index) => ({
-  //       ...series,
-  //       data: y[index],
-  //       // name: y[index].name,
-  //     })),
-  //   }))
+  const setChartData = ({ x, y, title = '' }) =>
+    setAscentsByGradeByStyleOptions((previousOptions) => ({
+      ...previousOptions,
+      title,
+      xAxis: [
+        {
+          categories: x,
+        },
+      ],
+      series: [
+        ...previousOptions.series,
+        y.map((series, index) => ({
+          ...series,
+          data: y[index],
+          // name: y[index].name,
+        })),
+      ],
+    }))
 
   useEffect(() => {
     const source = CancelToken.source()
@@ -36,13 +39,16 @@ export default function DashboardPage() {
     API.get(`/ascents/by-grade-by-style`)
       .then(({ data }) => {
         window.console.log(data)
-        // setChartData(data)
+        setChartData(data)
       })
       .catch(window.console.error)
 
     // Get all the ascents
     API.get(`/ascents`)
-      .then(({ data }) => setAscentList(data))
+      .then(({ data }) => {
+        // window.console.log(data)
+        setAscentList(data)
+      })
       .catch(window.console.error)
 
     return () => {
@@ -55,13 +61,11 @@ export default function DashboardPage() {
   return (
     <>
       <div className="charts-container">
-        {/* {!!Object.keys(ascentsByGradeByStyleOptions).length && (
-          <HighchartsReact
-            className="chart"
-            highcharts={Highcharts}
-            options={ascentsByGradeByStyleOptions}
-          />
-        )} */}
+        <HighchartsReact
+          className="chart"
+          highcharts={Highcharts}
+          options={ascentsByGradeByStyleOptions}
+        />
       </div>
       <table>
         <thead>
