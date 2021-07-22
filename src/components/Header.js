@@ -5,7 +5,9 @@ export default function Header() {
   return (
     <header>
       <img className="logo" src={logo} alt="logo" />
-      <h1 className="title">Climbing is fun!</h1>
+      <h1 className="title">Climb harder</h1>
+      <q>There’s no such thing as too much power!</q>
+      <span className="author"> ~ W. Güllich 💪</span>
       <NavBar />
     </header>
   )
