@@ -16,20 +16,21 @@ export default function DashboardPage() {
   const setChartData = ({ x, y, title = '' }) =>
     setAscentsByGradeByStyleOptions((previousOptions) => ({
       ...previousOptions,
-      title,
+      title: { text: title },
       xAxis: [
         {
           categories: x,
         },
       ],
-      series: [
-        ...previousOptions.series,
-        y.map((series, index) => ({
-          ...series,
-          data: y[index],
-          // name: y[index].name,
+      series:
+        // ...previousOptions.series,
+        y.map((series) => ({
+          // ...previousOptions.series[index],
+          type: 'column',
+          data: series.data.map((obj) => Object.values(obj)[0]),
+          name: series.name,
+          color: series.color,
         })),
-      ],
     }))
 
   useEffect(() => {
