@@ -1,5 +1,5 @@
-const noop = () => {
-  console.log('hello file')
+const noop = (file) => {
+  window.console.log(`Hello file: ${file}`)
 }
 
 const FileInput = ({ value, onChange = noop, ...rest }) => (

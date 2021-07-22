@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 import dayjs from 'dayjs'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useToasts } from 'react-toast-notifications'
 import API from '../APIClient'
@@ -9,6 +9,7 @@ import parseCSV from '../utilities/parseCSV'
 
 export default function FormPage() {
   const [submitting, setSubmitting] = useState(false)
+  const [csvData, setCsvData] = useState([])
   const { addToast } = useToasts()
 
   const { register, handleSubmit } = useForm({
@@ -24,26 +25,49 @@ export default function FormPage() {
   })
 
   const handleFile = async ([file]) => {
-    // console.log(file)
-    console.log(await parseCSV(file))
+    setCsvData(
+      (await parseCSV(file)).data.map((ascent) => ({
+        routeName: ascent['Route Name'].toString(),
+        topoGrade: ascent['Topo Grade'],
+        date: new Date(ascent.Date),
+        crag: ascent.Crag,
+        climber: ascent.Climber,
+        routeOrBoulder: ascent['Route / Boulder'].toLowerCase(),
+        numberOfTries: parseInt(
+          ascent['# Tries'].replace(/([ A-Za-z])\w+/g, ''),
+          10
+        ),
+      }))
+    )
   }
 
-  const onSubmit = (data) => {
+  function sendAscents(data) {
     setSubmitting(true)
-
+    console.log(data)
     API.post('/ascents', data)
       .then((res) => {
-        addToast(`Well done for climbing ${res.data.routeName}. Congrats 🎉`, {
+        addToast(res.data, {
           appearance: 'success',
         })
       })
-      .catch(() => {
+      .catch((error) => {
         addToast('A problem occured. We could not reccord this accent. 😕', {
           appearance: 'error',
         })
+        window.console.error(error)
       })
       .finally(() => setSubmitting(false))
   }
+
+  const onSubmit = (data) => {
+    sendAscents([data])
+  }
+
+  useEffect(() => {
+    if (csvData.length > 0) {
+      sendAscents(csvData)
+    }
+  }, [csvData])
 
   return (
     <>
@@ -133,7 +157,6 @@ export default function FormPage() {
         <button
           type="submit"
           disabled={submitting}
-          onSubmit={handleSubmit(onSubmit)}
           form="form-ascent"
           className="btn save"
         >
