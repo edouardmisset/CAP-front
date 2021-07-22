@@ -225,6 +225,8 @@ form {
   width: clamp(15ch, 40%, 30ch);
 }
 
+/** Button */
+
 button {
   margin: 0;
   box-sizing: border-box;
@@ -277,4 +279,53 @@ button {
 
 .highcharts-credits {
   display: none;
+}
+
+/** Table */
+
+table {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+tr {
+  scroll-snap-align: start;
+}
+td {
+  width: 200px;
+  height: 40px;
+  text-align: center;
+  vertical-align: middle;
+  background: black;
+  scroll-snap-align: start;
+  counter-increment: td;
+}
+
+tr {
+  counter-increment: tr;
+}
+
+tbody td:before {
+  content: counter(tr) '-' counter(td);
+}
+
+tbody > tr:hover td {
+  background: gray;
+}
+
+thead td {
+  position: sticky;
+  top: 0;
+  box-shadow: 0 1px white;
+}
+tr > td:first-child {
+  position: sticky;
+  left: 0;
+  box-shadow: 1px 0 white;
+}
+thead td:first-child {
+  z-index: 1;
+  box-shadow: 1px 1px white;
 }
