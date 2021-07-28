@@ -78,4 +78,4 @@ const graphOptions = {
   },
 }
 
-export { graphOptions }
+export { graphOptions, textColor, hoverColor, disabledColor, backgroundColor }

@@ -1,53 +1,29 @@
 import axios from 'axios'
-import Highcharts from 'highcharts'
-import HighchartsReact from 'highcharts-react-official'
 import { useEffect, useState } from 'react'
 import API from '../APIClient'
 import AscentTable from '../components/AscentTable'
-import { graphOptions } from '../utilities/graphHelper'
+import Chart from '../components/Chart'
+import getAscentsByGradeByStyle from '../utilities/ascentsByGradeByStyle'
 
 const { CancelToken } = axios
 
 export default function DashboardPage() {
-  const [ascentList, setAscentList] = useState([])
-  const [ascentsByGradeByStyleOptions, setAscentsByGradeByStyleOptions] =
-    useState(graphOptions)
-
-  const setChartData = ({ x, y, title = '' }) =>
-    setAscentsByGradeByStyleOptions((previousOptions) => ({
-      ...previousOptions,
-      title: { text: title },
-      xAxis: [
-        {
-          categories: x,
-        },
-      ],
-      series:
-        // ...previousOptions.series,
-        y.map((series) => ({
-          // ...previousOptions.series[index],
-          type: 'column',
-          data: series.data,
-          name: series.name,
-          color: series.color,
-        })),
-    }))
+  const [ascentList, setAscentList] = useState([]) // Use a context instead of useState
+  const [ascentsByGradeByStyle, setAscentsByGradeByStyle] = useState(null)
 
   useEffect(() => {
     const source = CancelToken.source()
 
     // Get the ascents by grade by style
-    API.get(`/ascents/by-grade-by-style`)
-      .then(({ data }) => {
-        // window.console.log(data)
-        setChartData(data)
-      })
-      .catch(window.console.error)
+    // API.get(`/ascents/by-grade-by-style`)
+    //   .then(({ data }) => {
+    //     // setData(data)
+    //   })
+    //   .catch(window.console.error)
 
     // Get all the ascents
     API.get(`/ascents`)
       .then(({ data }) => {
-        // window.console.log(data)
         setAscentList(data)
       })
       .catch(window.console.error)
@@ -59,14 +35,20 @@ export default function DashboardPage() {
     }
   }, [])
 
+  useEffect(() => {
+    setAscentsByGradeByStyle(getAscentsByGradeByStyle(ascentList))
+  }, [ascentList])
+
   return (
     <>
       <div className="charts-container">
-        <HighchartsReact
-          className="chart"
-          highcharts={Highcharts}
-          options={ascentsByGradeByStyleOptions}
-        />
+        {!!ascentsByGradeByStyle && (
+          <Chart
+            x={ascentsByGradeByStyle.x}
+            y={ascentsByGradeByStyle.y}
+            title={ascentsByGradeByStyle.title}
+          />
+        )}
       </div>
       <AscentTable ascentList={ascentList} />
     </>
