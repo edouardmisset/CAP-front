@@ -7,6 +7,7 @@ import { isObjectEmpty } from '../utilities/utilities'
 import getAscentsByGradeByStyle from '../analysis/ascentsByGradeByStyle'
 import getAscentsBySeasonByGrade from '../analysis/ascentsBySeasonByGrade'
 import getRoutesVsBoulderBySeason from '../analysis/routesVsBoulderBySeason'
+import getAscentsByStyle from '../analysis/ascentsByStyle'
 
 const { CancelToken } = axios
 
@@ -15,6 +16,7 @@ export default function DashboardPage() {
   const [ascentsByGradeByStyle, setAscentsByGradeByStyle] = useState({})
   const [ascentsBySeasonByGrade, setAscentsBySeasonByGrade] = useState({})
   const [routesVsBouldersBySeason, setRoutesVsBouldersBySeason] = useState({})
+  const [ascentsByStyle, setAscentsByStyle] = useState({})
 
   useEffect(() => {
     const source = CancelToken.source()
@@ -35,6 +37,7 @@ export default function DashboardPage() {
     setAscentsByGradeByStyle(getAscentsByGradeByStyle(ascentList))
     setAscentsBySeasonByGrade(getAscentsBySeasonByGrade(ascentList))
     setRoutesVsBouldersBySeason(getRoutesVsBoulderBySeason(ascentList))
+    setAscentsByStyle(getAscentsByStyle(ascentList))
   }, [ascentList])
 
   return (
@@ -62,6 +65,14 @@ export default function DashboardPage() {
             y={routesVsBouldersBySeason.y}
             title={routesVsBouldersBySeason.title}
             stacking={routesVsBouldersBySeason.stacking}
+          />
+        )}
+        {!isObjectEmpty(ascentsByStyle) && (
+          <Chart
+            x={ascentsByStyle.x}
+            y={ascentsByStyle.y}
+            title={ascentsByStyle.title}
+            stacking={ascentsByStyle.stacking}
           />
         )}
       </div>

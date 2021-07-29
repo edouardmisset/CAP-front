@@ -73,6 +73,20 @@ const graphOptions = {
         enabled: true,
       },
     },
+    pie: {
+      allowPointSelect: true,
+      cursor: 'pointer',
+      dataLabels: {
+        enabled: true,
+        format: '{point.name}<br>{point.percentage:.1f} %',
+        distance: -50,
+        filter: {
+          property: 'percentage',
+          operator: '>',
+          value: 4,
+        },
+      },
+    },
   },
 }
 

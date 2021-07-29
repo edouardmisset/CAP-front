@@ -5,6 +5,9 @@ import { graphOptions } from '../utilities/graphHelper'
 export default function Chart({ x, y, title = '', stacking = undefined }) {
   const setChartData = (xChart, yChart, chartTitle) => ({
     ...graphOptions,
+    chart: {
+      ...graphOptions.chart,
+    },
     title: { ...graphOptions.title, text: chartTitle },
     xAxis: {
       ...graphOptions.xAxis,
@@ -17,6 +20,7 @@ export default function Chart({ x, y, title = '', stacking = undefined }) {
       color: serie.color,
     })),
     plotOptions: {
+      ...graphOptions.plotOptions,
       column: {
         ...graphOptions.plotOptions.column,
         stacking,
