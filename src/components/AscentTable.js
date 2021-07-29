@@ -4,10 +4,6 @@ export default function AscentTable({ ascentList }) {
   return ascentList.length > 0 ? (
     <div className="table">
       <h3>Ascents</h3>
-      <div className="table-filter">
-        <p>Climber: {ascentList[0]?.climber}</p>
-        <p>Route / Boulder: {ascentList[0]?.routeOrBoulder}</p>
-      </div>
       <p>
         {`${ascentList.length} ascents over
           ${new Set(ascentList.map((ascent) => ascent.date)).size} days`}
