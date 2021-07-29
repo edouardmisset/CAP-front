@@ -1,6 +1,5 @@
-import { getGradeColor } from './utilities'
-
-const unique = (array) => [...new Set(array)]
+import { getGradeColor } from '../utilities/colors'
+import { unique } from '../utilities/utilities'
 
 export default (ascentList) => {
   const x = unique(

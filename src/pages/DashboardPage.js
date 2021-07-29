@@ -4,9 +4,9 @@ import API from '../APIClient'
 import AscentTable from '../components/AscentTable'
 import Chart from '../components/Chart'
 import { isObjectEmpty } from '../utilities/utilities'
-import getAscentsByGradeByStyle from '../utilities/ascentsByGradeByStyle'
-import getAscentsBySeasonByGrade from '../utilities/ascentsBySeasonByGrade'
-import getRoutesVsBoulderBySeason from '../utilities/routesVsBoulderBySeason'
+import getAscentsByGradeByStyle from '../analysis/ascentsByGradeByStyle'
+import getAscentsBySeasonByGrade from '../analysis/ascentsBySeasonByGrade'
+import getRoutesVsBoulderBySeason from '../analysis/routesVsBoulderBySeason'
 
 const { CancelToken } = axios
 

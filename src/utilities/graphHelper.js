@@ -1,5 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-
 const textColor = '#fff'
 const hoverColor = '#ccc'
 const disabledColor = '#555'

@@ -1,4 +1,5 @@
-const unique = (array) => [...new Set(array)]
+import { unique } from '../utilities/utilities'
+import { getStyleColor } from '../utilities/colors'
 
 export default (ascentList) => {
   const x = unique(ascentList.map((ascent) => ascent.topoGrade)).sort()
@@ -23,11 +24,16 @@ export default (ascentList) => {
   return {
     x,
     y: [
-      { data: firstGo, name: 'First Go', color: '#2ecc40', type: 'column' },
+      {
+        data: firstGo,
+        name: 'First Go',
+        color: getStyleColor('one'),
+        type: 'column',
+      },
       {
         data: twoAndMoreTries,
         name: 'Second Go and +',
-        color: '#ffdc00',
+        color: getStyleColor('twoAndMore'),
         type: 'column',
       },
     ],

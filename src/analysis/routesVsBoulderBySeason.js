@@ -1,6 +1,5 @@
-import { getRouteBoulderColor } from './utilities'
-
-const unique = (array) => [...new Set(array)]
+import { getRouteBoulderColor } from '../utilities/colors'
+import { unique } from '../utilities/utilities'
 
 export default (ascentList) => {
   const x = unique(
