@@ -14,6 +14,7 @@ export default (ascentList) => {
     x,
     y: grades
       .map((grade) => ({
+        type: 'column',
         name: grade,
         color: getGradeColor(grade),
         data: x.map(
@@ -26,5 +27,6 @@ export default (ascentList) => {
         ),
       }))
       .sort((a, b) => b.name.localeCompare(a.name)),
+    stacking: 'normal',
   }
 }

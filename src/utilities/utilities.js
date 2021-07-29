@@ -59,4 +59,20 @@ const getGradeColor = (grade) => {
   }
 }
 
-export { isObjectEmpty, randomIntFromInterval, getGradeColor }
+const getRouteBoulderColor = (routeOrBoulder) => {
+  switch (routeOrBoulder) {
+    case 'route':
+      return 'blue'
+    case 'boulder':
+      return 'red'
+    default:
+      return '#999'
+  }
+}
+
+export {
+  isObjectEmpty,
+  randomIntFromInterval,
+  getRouteBoulderColor,
+  getGradeColor,
+}

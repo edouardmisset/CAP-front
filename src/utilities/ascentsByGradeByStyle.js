@@ -23,9 +23,15 @@ export default (ascentList) => {
   return {
     x,
     y: [
-      { data: firstGo, name: 'First Go', color: '#2ecc40' },
-      { data: twoAndMoreTries, name: 'Second Go', color: '#ffdc00' },
+      { data: firstGo, name: 'First Go', color: '#2ecc40', type: 'column' },
+      {
+        data: twoAndMoreTries,
+        name: 'Second Go and +',
+        color: '#ffdc00',
+        type: 'column',
+      },
     ],
     title: 'Number of Ascents by Grade by Style',
+    stacking: 'normal',
   }
 }

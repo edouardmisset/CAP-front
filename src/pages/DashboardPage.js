@@ -6,6 +6,7 @@ import Chart from '../components/Chart'
 import { isObjectEmpty } from '../utilities/utilities'
 import getAscentsByGradeByStyle from '../utilities/ascentsByGradeByStyle'
 import getAscentsBySeasonByGrade from '../utilities/ascentsBySeasonByGrade'
+import getRoutesVsBoulderBySeason from '../utilities/routesVsBoulderBySeason'
 
 const { CancelToken } = axios
 
@@ -13,6 +14,7 @@ export default function DashboardPage() {
   const [ascentList, setAscentList] = useState([]) // Use a context instead of useState
   const [ascentsByGradeByStyle, setAscentsByGradeByStyle] = useState({})
   const [ascentsBySeasonByGrade, setAscentsBySeasonByGrade] = useState({})
+  const [routesVsBouldersBySeason, setRoutesVsBouldersBySeason] = useState({})
 
   useEffect(() => {
     const source = CancelToken.source()
@@ -32,6 +34,7 @@ export default function DashboardPage() {
   useEffect(() => {
     setAscentsByGradeByStyle(getAscentsByGradeByStyle(ascentList))
     setAscentsBySeasonByGrade(getAscentsBySeasonByGrade(ascentList))
+    setRoutesVsBouldersBySeason(getRoutesVsBoulderBySeason(ascentList))
   }, [ascentList])
 
   return (
@@ -42,6 +45,7 @@ export default function DashboardPage() {
             x={ascentsByGradeByStyle.x}
             y={ascentsByGradeByStyle.y}
             title={ascentsByGradeByStyle.title}
+            stacking={ascentsByGradeByStyle.stacking}
           />
         )}
         {!isObjectEmpty(ascentsBySeasonByGrade) && (
@@ -49,6 +53,15 @@ export default function DashboardPage() {
             x={ascentsBySeasonByGrade.x}
             y={ascentsBySeasonByGrade.y}
             title={ascentsBySeasonByGrade.title}
+            stacking={ascentsByGradeByStyle.stacking}
+          />
+        )}
+        {!isObjectEmpty(routesVsBouldersBySeason) && (
+          <Chart
+            x={routesVsBouldersBySeason.x}
+            y={routesVsBouldersBySeason.y}
+            title={routesVsBouldersBySeason.title}
+            stacking={routesVsBouldersBySeason.stacking}
           />
         )}
       </div>

@@ -2,7 +2,7 @@ import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import { graphOptions } from '../utilities/graphHelper'
 
-export default function Chart({ x, y, title = '' }) {
+export default function Chart({ x, y, title = '', stacking = undefined }) {
   const setChartData = (xChart, yChart, chartTitle) => ({
     ...graphOptions,
     title: { ...graphOptions.title, text: chartTitle },
@@ -11,18 +11,24 @@ export default function Chart({ x, y, title = '' }) {
       categories: xChart,
     },
     series: yChart.map((serie) => ({
-      type: 'column',
+      type: serie.type,
       data: serie.data,
       name: serie.name,
       color: serie.color,
     })),
+    plotOptions: {
+      column: {
+        ...graphOptions.plotOptions.column,
+        stacking,
+      },
+    },
   })
 
   return (
     <HighchartsReact
       className="chart"
       highcharts={Highcharts}
-      options={setChartData(x, y, title)}
+      options={setChartData(x, y, title, stacking)}
     />
   )
 }
