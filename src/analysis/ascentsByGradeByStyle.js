@@ -25,15 +25,15 @@ export default (ascentList) => {
     x,
     y: [
       {
-        data: firstGo,
-        name: 'First Go',
-        color: getStyleColor('one'),
-        type: 'column',
-      },
-      {
         data: twoAndMoreTries,
         name: 'Second Go and +',
         color: getStyleColor('twoAndMore'),
+        type: 'column',
+      },
+      {
+        data: firstGo,
+        name: 'First Go',
+        color: getStyleColor('one'),
         type: 'column',
       },
     ],
