@@ -15,9 +15,8 @@ export default (ascentList) => {
     (ascent) => ascent.numberOfTries >= 2
   ).length
 
-  console.log({ firstGo, twoAndMoreTries })
-
   return {
+    title: 'Number of Ascents by Style',
     x: null,
     y: [
       {
@@ -25,20 +24,18 @@ export default (ascentList) => {
         name: 'Number of Ascents by Style',
         data: [
           {
-            name: 'Second Go and +',
-            y: twoAndMoreTries,
-            color: getStyleColor('twoAndMore'),
-          },
-          {
             name: 'First Go',
             y: firstGo,
             color: getStyleColor('one'),
             sliced: true,
           },
+          {
+            name: 'Second Go and +',
+            y: twoAndMoreTries,
+            color: getStyleColor('twoAndMore'),
+          },
         ],
       },
     ],
-    title: 'Number of Ascents by Style',
-    stacking: 'normal',
   }
 }
