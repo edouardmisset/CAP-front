@@ -43,7 +43,6 @@ export default function FormPage() {
 
   function sendAscents(data) {
     setSubmitting(true)
-    console.log(data)
     API.post('/ascents', data)
       .then((res) => {
         addToast(res.data, {
