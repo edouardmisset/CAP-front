@@ -22,6 +22,8 @@ export default function DashboardPage() {
   const [routesVsBoulders, setRoutesVsBoulders] = useState({})
 
   const [selectedRouteOrBoulder, setSelectedRouteOrBoulder] = useState('')
+  const [selectedSeason, setSelectedSeason] = useState('')
+  const [availableSeasons, setAvailableSeasons] = useState([])
 
   // Fetch the user's ascent list
   useEffect(() => {
@@ -47,33 +49,57 @@ export default function DashboardPage() {
     setRoutesVsBouldersBySeason(getRoutesVsBoulderBySeason(filteredAscentList))
     setAscentsByStyle(getAscentsByStyle(filteredAscentList))
     setRoutesVsBoulders(getRoutesVsBoulder(filteredAscentList))
+    setAvailableSeasons(
+      Array.from(
+        new Set(
+          filteredAscentList.map((ascent) =>
+            new Date(ascent.date).getFullYear().toString()
+          )
+        )
+      ).sort((a, b) => a - b)
+    )
   }, [filteredAscentList])
 
   useEffect(() => {
     setFilteredAscentList(
-      ascentList.filter((ascent) =>
-        ascent.routeOrBoulder.includes(selectedRouteOrBoulder)
-      )
+      ascentList
+        .filter((ascent) =>
+          ascent.routeOrBoulder.includes(selectedRouteOrBoulder)
+        )
+        .filter((ascent) =>
+          new Date(ascent.date)
+            .getFullYear()
+            .toString()
+            .includes(selectedSeason)
+        )
     )
-  }, [selectedRouteOrBoulder])
+  }, [selectedRouteOrBoulder, selectedSeason])
 
-  const handleRouteOrBoulderChange = (event) => {
-    setSelectedRouteOrBoulder(event.target.value)
-    setFilteredAscentList(
-      [...filteredAscentList].filter((ascent) =>
-        ascent.routeOrBoulder.includes(selectedRouteOrBoulder)
-      )
-    )
-  }
   return (
     <>
       <div className="table-filter">
+        <label htmlFor="Season">
+          Season:
+          <select
+            name="Season"
+            id="Season"
+            onChange={(event) => setSelectedSeason(event.target.value)}
+          >
+            <option value="">All</option>
+            {!!availableSeasons.length &&
+              availableSeasons.map((season) => (
+                <option key={season} value={season}>
+                  {season}
+                </option>
+              ))}
+          </select>
+        </label>
         <label htmlFor="routeOrBoulder">
           Route / Boulder:
           <select
             name="routeOrBoulder"
             id="routeOrBoulder"
-            onChange={handleRouteOrBoulderChange}
+            onChange={(event) => setSelectedRouteOrBoulder(event.target.value)}
           >
             <option value="">All</option>
             <option value="route">Route</option>
