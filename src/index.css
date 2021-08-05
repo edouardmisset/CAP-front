@@ -297,14 +297,20 @@ table {
   table-layout: fixed;
   border-collapse: collapse;
 }
+
+thead {
+  line-height: 3em;
+}
+
 tr {
   scroll-snap-align: start;
 }
+
 td {
-  width: 200px;
-  height: 40px;
-  text-align: center;
+  height: 2em;
+  text-align: left;
   vertical-align: middle;
+  padding-left: 1em;
   background: var(--bg-primary);
   scroll-snap-align: start;
 }

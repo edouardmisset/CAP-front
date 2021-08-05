@@ -104,10 +104,6 @@ export default function DashboardPage() {
     selectedNumberOfTries,
   ])
 
-  console.log({
-    selectedNumberOfTries,
-  })
-
   return (
     <>
       <div className="table-filter">

@@ -16,8 +16,6 @@ export default function AscentTable({ ascentList }) {
             <th>Number Of Tries</th>
             <th>Crag</th>
             <th>Date</th>
-            <th>Route / Boulder</th>
-            <th>Climber</th>
           </tr>
         </thead>
         <tbody>
@@ -28,19 +26,18 @@ export default function AscentTable({ ascentList }) {
                 topoGrade,
                 date,
                 crag,
-                climber,
                 routeOrBoulder,
                 numberOfTries,
                 id,
               }) => (
                 <tr key={id}>
-                  <td>{routeName}</td>
+                  <td>
+                    {`${routeOrBoulder === 'route' ? '🧗‍♂️' : '🪨'} ${routeName}`}
+                  </td>
                   <td>{topoGrade}</td>
                   <td>{numberOfTries}</td>
                   <td>{crag}</td>
-                  <td>{dayjs(date).format('YYYY/MM/DD')}</td>
-                  <td>{routeOrBoulder}</td>
-                  <td>{climber}</td>
+                  <td>{dayjs(date).format('YYYY-MM-DD')}</td>
                 </tr>
               )
             )}
