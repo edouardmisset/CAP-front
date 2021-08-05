@@ -342,6 +342,7 @@ thead td:first-child {
 
 .table-filter {
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   justify-content: space-around;
 }

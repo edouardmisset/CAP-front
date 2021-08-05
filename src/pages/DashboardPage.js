@@ -21,9 +21,13 @@ export default function DashboardPage() {
   const [ascentsByStyle, setAscentsByStyle] = useState({})
   const [routesVsBoulders, setRoutesVsBoulders] = useState({})
 
-  const [selectedRouteOrBoulder, setSelectedRouteOrBoulder] = useState('')
-  const [selectedSeason, setSelectedSeason] = useState('')
+  const [selectedRouteOrBoulder, setSelectedRouteOrBoulder] = useState(null)
+  const [selectedSeason, setSelectedSeason] = useState(null)
   const [availableSeasons, setAvailableSeasons] = useState([])
+  const [selectedGrade, setSelectedGrade] = useState(null)
+  const [availableGrades, setAvailableGrades] = useState([])
+  const [selectedNumberOfTries, setSelectedNumberOfTries] = useState(null)
+  const [availableNumberOfTries, setAvailableNumberOfTries] = useState([])
 
   // Fetch the user's ascent list
   useEffect(() => {
@@ -41,6 +45,25 @@ export default function DashboardPage() {
 
   useEffect(() => {
     setFilteredAscentList(ascentList)
+    setAvailableSeasons(
+      Array.from(
+        new Set(
+          ascentList.map((ascent) =>
+            new Date(ascent.date).getFullYear().toString()
+          )
+        )
+      ).sort((a, b) => b - a)
+    )
+    setAvailableNumberOfTries(
+      Array.from(
+        new Set(ascentList.map((ascent) => ascent.numberOfTries))
+      ).sort((a, b) => a - b)
+    )
+    setAvailableGrades(
+      Array.from(new Set(ascentList.map((ascent) => ascent.topoGrade))).sort(
+        (a, b) => b.localeCompare(a)
+      )
+    )
   }, [ascentList])
 
   useEffect(() => {
@@ -49,31 +72,41 @@ export default function DashboardPage() {
     setRoutesVsBouldersBySeason(getRoutesVsBoulderBySeason(filteredAscentList))
     setAscentsByStyle(getAscentsByStyle(filteredAscentList))
     setRoutesVsBoulders(getRoutesVsBoulder(filteredAscentList))
-    setAvailableSeasons(
-      Array.from(
-        new Set(
-          filteredAscentList.map((ascent) =>
-            new Date(ascent.date).getFullYear().toString()
-          )
-        )
-      ).sort((a, b) => a - b)
-    )
   }, [filteredAscentList])
 
   useEffect(() => {
     setFilteredAscentList(
       ascentList
-        .filter((ascent) =>
-          ascent.routeOrBoulder.includes(selectedRouteOrBoulder)
+        .filter(({ routeOrBoulder }) =>
+          selectedRouteOrBoulder === null
+            ? true
+            : routeOrBoulder === selectedRouteOrBoulder
         )
-        .filter((ascent) =>
-          new Date(ascent.date)
-            .getFullYear()
-            .toString()
-            .includes(selectedSeason)
+        .filter(({ date }) =>
+          selectedSeason === null
+            ? true
+            : new Date(date).getFullYear() === selectedSeason
+        )
+        .filter(({ numberOfTries }) =>
+          selectedNumberOfTries === null
+            ? true
+            : parseInt(numberOfTries, 10) ===
+              parseInt(selectedNumberOfTries, 10)
+        )
+        .filter(({ topoGrade }) =>
+          topoGrade === null ? true : topoGrade === selectedGrade
         )
     )
-  }, [selectedRouteOrBoulder, selectedSeason])
+  }, [
+    selectedRouteOrBoulder,
+    selectedSeason,
+    selectedGrade,
+    selectedNumberOfTries,
+  ])
+
+  console.log({
+    selectedNumberOfTries,
+  })
 
   return (
     <>
@@ -90,6 +123,38 @@ export default function DashboardPage() {
               availableSeasons.map((season) => (
                 <option key={season} value={season}>
                   {season}
+                </option>
+              ))}
+          </select>
+        </label>
+        <label htmlFor="Grade">
+          Grade:
+          <select
+            name="Grade"
+            id="Grade"
+            onChange={(event) => setSelectedGrade(event.target.value)}
+          >
+            <option value="">All</option>
+            {!!availableGrades.length &&
+              availableGrades.map((topoGrade) => (
+                <option key={topoGrade} value={topoGrade}>
+                  {topoGrade}
+                </option>
+              ))}
+          </select>
+        </label>
+        <label htmlFor="NumberOfTries">
+          Number Of Tries:
+          <select
+            name="NumberOfTries"
+            id="NumberOfTries"
+            onChange={(event) => setSelectedNumberOfTries(event.target.value)}
+          >
+            <option value="">All</option>
+            {!!availableNumberOfTries.length &&
+              availableNumberOfTries.map((numberOfTries) => (
+                <option key={numberOfTries} value={numberOfTries}>
+                  {numberOfTries}
                 </option>
               ))}
           </select>
