@@ -1,6 +1,4 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import API from '../APIClient'
+import { useContext, useEffect, useState } from 'react'
 import AscentTable from '../components/AscentTable'
 import Chart from '../components/Chart'
 import { isObjectEmpty } from '../utilities/utilities'
@@ -9,11 +7,10 @@ import getAscentsBySeasonByGrade from '../analysis/ascentsBySeasonByGrade'
 import getRoutesVsBoulderBySeason from '../analysis/routesVsBoulderBySeason'
 import getAscentsByStyle from '../analysis/ascentsByStyle'
 import getRoutesVsBoulder from '../analysis/routesVsBoulder'
-
-const { CancelToken } = axios
+import { AscentsContext } from '../contexts/AscentsContext'
 
 export default function DashboardPage() {
-  const [ascentList, setAscentList] = useState([]) // Use a context instead of useState ?
+  const { ascentList } = useContext(AscentsContext)
   const [filteredAscentList, setFilteredAscentList] = useState([]) // Use a context instead of useState ?
   const [ascentsByGradeByStyle, setAscentsByGradeByStyle] = useState({})
   const [ascentsBySeasonByGrade, setAscentsBySeasonByGrade] = useState({})
@@ -21,37 +18,19 @@ export default function DashboardPage() {
   const [ascentsByStyle, setAscentsByStyle] = useState({})
   const [routesVsBoulders, setRoutesVsBoulders] = useState({})
 
-  const [selectedRouteOrBoulder, setSelectedRouteOrBoulder] = useState(null)
-  const [selectedSeason, setSelectedSeason] = useState(null)
+  const [selectedRouteOrBoulder, setSelectedRouteOrBoulder] = useState('')
+  const [selectedSeason, setSelectedSeason] = useState('')
   const [availableSeasons, setAvailableSeasons] = useState([])
-  const [selectedGrade, setSelectedGrade] = useState(null)
+  const [selectedGrade, setSelectedGrade] = useState('')
   const [availableGrades, setAvailableGrades] = useState([])
-  const [selectedNumberOfTries, setSelectedNumberOfTries] = useState(null)
+  const [selectedNumberOfTries, setSelectedNumberOfTries] = useState('')
   const [availableNumberOfTries, setAvailableNumberOfTries] = useState([])
-
-  // Fetch the user's ascent list
-  useEffect(() => {
-    const source = CancelToken.source()
-    // Get all the ascents
-    API.get(`/ascents`)
-      .then(({ data }) => setAscentList(data))
-      .catch(window.console.error)
-    return () => {
-      if (source) {
-        source.cancel('request cancelled')
-      }
-    }
-  }, [])
 
   useEffect(() => {
     setFilteredAscentList(ascentList)
     setAvailableSeasons(
       Array.from(
-        new Set(
-          ascentList.map((ascent) =>
-            new Date(ascent.date).getFullYear().toString()
-          )
-        )
+        new Set(ascentList.map((ascent) => new Date(ascent.date).getFullYear()))
       ).sort((a, b) => b - a)
     )
     setAvailableNumberOfTries(
@@ -78,23 +57,22 @@ export default function DashboardPage() {
     setFilteredAscentList(
       ascentList
         .filter(({ routeOrBoulder }) =>
-          selectedRouteOrBoulder === null
+          selectedRouteOrBoulder === ''
             ? true
             : routeOrBoulder === selectedRouteOrBoulder
         )
         .filter(({ date }) =>
-          selectedSeason === null
+          selectedSeason === ''
             ? true
-            : new Date(date).getFullYear() === selectedSeason
+            : new Date(date).getFullYear() === parseInt(selectedSeason, 10)
         )
         .filter(({ numberOfTries }) =>
-          selectedNumberOfTries === null
+          selectedNumberOfTries === ''
             ? true
-            : parseInt(numberOfTries, 10) ===
-              parseInt(selectedNumberOfTries, 10)
+            : numberOfTries === parseInt(selectedNumberOfTries, 10)
         )
         .filter(({ topoGrade }) =>
-          topoGrade === null ? true : topoGrade === selectedGrade
+          selectedGrade === '' ? true : topoGrade === selectedGrade
         )
     )
   }, [
