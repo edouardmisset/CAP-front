@@ -4,14 +4,14 @@ import Chart from '../components/Chart'
 import { isObjectEmpty } from '../utilities/utilities'
 import getAscentsByGradeByStyle from '../analysis/ascentsByGradeByStyle'
 import getAscentsBySeasonByGrade from '../analysis/ascentsBySeasonByGrade'
-import getRoutesVsBoulderBySeason from '../analysis/routesVsBoulderBySeason'
+import getRoutesVsBoulderBySeason from '../analysis/routesVsBouldersBySeason'
 import getAscentsByStyle from '../analysis/ascentsByStyle'
-import getRoutesVsBoulder from '../analysis/routesVsBoulder'
+import getRoutesVsBoulder from '../analysis/routesVsBoulders'
 import { AscentsContext } from '../contexts/AscentsContext'
 
 export default function DashboardPage() {
-  const { ascentList } = useContext(AscentsContext)
-  const [filteredAscentList, setFilteredAscentList] = useState([]) // Use a context instead of useState ?
+  const { ascentList, filteredAscentList, setFilteredAscentList } =
+    useContext(AscentsContext)
   const [ascentsByGradeByStyle, setAscentsByGradeByStyle] = useState({})
   const [ascentsBySeasonByGrade, setAscentsBySeasonByGrade] = useState({})
   const [routesVsBouldersBySeason, setRoutesVsBouldersBySeason] = useState({})
