@@ -5,7 +5,10 @@ const noop = (file) => {
 const FileInput = ({ value, onChange = noop, ...rest }) => (
   <div>
     {!!value.length && (
-      <div>Selected files: {value.map((file) => file.name).join(', ')}</div>
+      <div>
+        Selected files:
+        {value.map((file) => file.name).join(', ')}
+      </div>
     )}
     <label id="file-input-label" className="btn" htmlFor="file-input">
       Click to add a CSV...
