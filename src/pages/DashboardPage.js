@@ -192,6 +192,14 @@ export default function DashboardPage() {
             stacking={routesVsBoulders.stacking}
           />
         )}
+        {!isObjectEmpty(triesByGrade) && (
+          <Chart
+            x={triesByGrade.x}
+            y={triesByGrade.y}
+            title={triesByGrade.title}
+            stacking={triesByGrade.stacking}
+          />
+        )}
       </div>
       <AscentTable ascentList={ascentList} />
     </>

@@ -13,7 +13,7 @@ export default (ascentList) => {
       {
         type: 'line',
         name: 'Average',
-        color: 'grey',
+        color: 'limegreen',
         data: grades.map((grade) => getAverageNumberOfTries(ascentList, grade)),
       },
       {
@@ -31,7 +31,7 @@ export default (ascentList) => {
       {
         type: 'line',
         name: 'Maximum',
-        color: 'red',
+        color: 'orange',
         data: grades.map((grade) =>
           Math.max(
             ...ascentList
