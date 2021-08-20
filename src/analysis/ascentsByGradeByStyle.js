@@ -1,8 +1,8 @@
-import { unique } from '../utilities/utilities'
+import { getGradesFromAscentList } from '../utilities/utilities'
 import { getStyleColor } from '../utilities/colors'
 
 export default (ascentList) => {
-  const x = unique(ascentList.map((ascent) => ascent.topoGrade)).sort()
+  const x = getGradesFromAscentList(ascentList)
   const firstGo = x.map(
     (grade) =>
       ascentList.filter(

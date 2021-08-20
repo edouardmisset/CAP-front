@@ -1,10 +1,8 @@
 import { getRouteBoulderColor } from '../utilities/colors'
-import { unique } from '../utilities/utilities'
+import { getYearsFromAscentList } from '../utilities/utilities'
 
 export default (ascentList) => {
-  const x = unique(
-    ascentList.map((ascent) => new Date(ascent.date).getFullYear())
-  ).sort((a, b) => a - b)
+  const x = getYearsFromAscentList(ascentList)
 
   const routes = x.map(
     (year) =>

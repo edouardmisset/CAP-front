@@ -1,12 +1,13 @@
 import { getGradeColor } from '../utilities/colors'
-import { unique } from '../utilities/utilities'
+import {
+  getGradesFromAscentList,
+  getYearsFromAscentList,
+} from '../utilities/utilities'
 
 export default (ascentList) => {
-  const x = unique(
-    ascentList.map((ascent) => new Date(ascent.date).getFullYear())
-  ).sort((a, b) => a - b)
+  const x = getYearsFromAscentList(ascentList)
 
-  const grades = unique(ascentList.map((ascent) => ascent.topoGrade)).sort()
+  const grades = getGradesFromAscentList(ascentList)
 
   return {
     title: 'Number of Ascents by Season by Grade',
