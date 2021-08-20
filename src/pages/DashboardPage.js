@@ -6,6 +6,7 @@ import getAscentsByGradeByStyle from '../analysis/ascentsByGradeByStyle'
 import getAscentsBySeasonByGrade from '../analysis/ascentsBySeasonByGrade'
 import getRoutesVsBoulderBySeason from '../analysis/routesVsBouldersBySeason'
 import getAscentsByStyle from '../analysis/ascentsByStyle'
+import getTriesByGrade from '../analysis/triesByGrade'
 import getRoutesVsBoulder from '../analysis/routesVsBoulders'
 import { AscentsContext } from '../contexts/AscentsContext'
 
@@ -17,6 +18,7 @@ export default function DashboardPage() {
   const [routesVsBouldersBySeason, setRoutesVsBouldersBySeason] = useState({})
   const [ascentsByStyle, setAscentsByStyle] = useState({})
   const [routesVsBoulders, setRoutesVsBoulders] = useState({})
+  const [triesByGrade, setTriesByGrade] = useState({})
 
   const [selectedRouteOrBoulder, setSelectedRouteOrBoulder] = useState('')
   const [selectedSeason, setSelectedSeason] = useState('')
@@ -51,6 +53,7 @@ export default function DashboardPage() {
     setRoutesVsBouldersBySeason(getRoutesVsBoulderBySeason(filteredAscentList))
     setAscentsByStyle(getAscentsByStyle(filteredAscentList))
     setRoutesVsBoulders(getRoutesVsBoulder(filteredAscentList))
+    setTriesByGrade(getTriesByGrade(filteredAscentList))
   }, [filteredAscentList])
 
   useEffect(() => {
@@ -81,6 +84,8 @@ export default function DashboardPage() {
     selectedGrade,
     selectedNumberOfTries,
   ])
+
+  window.console.log(triesByGrade)
 
   return (
     <>
