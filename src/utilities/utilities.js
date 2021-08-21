@@ -61,6 +61,24 @@ const getAverageNumberOfTries = (ascentList, grade) => {
   return totalNumberOfTries / filteredAscentList.length
 }
 
+/**
+ * @description Returns the average grade from a list of ascents
+ * @date 20/08/2021
+ * @param {Array} ascentList - list of ascents
+ * @return {String} averageGrade - grade
+ */
+const getAverageGrade = (ascentList) => {
+  const grades = getGradesFromAscentList(ascentList)
+  const numberOfAscents = ascentList.length
+  const numberOfAscentsTimesGradeNumber = grades.reduce(
+    (acc, grade, index) =>
+      acc +
+      ascentList.filter(({ topoGrade }) => topoGrade === grade).length * index,
+    0
+  )
+  return grades[Math.round(numberOfAscentsTimesGradeNumber / numberOfAscents)]
+}
+
 export {
   isObjectEmpty,
   randomIntFromInterval,
@@ -68,4 +86,5 @@ export {
   getYearsFromAscentList,
   getGradesFromAscentList,
   getAverageNumberOfTries,
+  getAverageGrade,
 }

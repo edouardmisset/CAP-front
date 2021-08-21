@@ -7,6 +7,7 @@ import getAscentsBySeasonByGrade from '../analysis/ascentsBySeasonByGrade'
 import getRoutesVsBoulderBySeason from '../analysis/routesVsBouldersBySeason'
 import getAscentsByStyle from '../analysis/ascentsByStyle'
 import getTriesByGrade from '../analysis/triesByGrade'
+import getMaxAndAverageGradeBySeason from '../analysis/maxAndAverageGradeBySeason'
 import getRoutesVsBoulder from '../analysis/routesVsBoulders'
 import { AscentsContext } from '../contexts/AscentsContext'
 
@@ -19,6 +20,9 @@ export default function DashboardPage() {
   const [ascentsByStyle, setAscentsByStyle] = useState({})
   const [routesVsBoulders, setRoutesVsBoulders] = useState({})
   const [triesByGrade, setTriesByGrade] = useState({})
+  const [maxAndAverageGradeBySeason, setMaxAndAverageGradeBySeason] = useState(
+    {}
+  )
 
   const [selectedRouteOrBoulder, setSelectedRouteOrBoulder] = useState('')
   const [selectedSeason, setSelectedSeason] = useState('')
@@ -54,6 +58,9 @@ export default function DashboardPage() {
     setAscentsByStyle(getAscentsByStyle(filteredAscentList))
     setRoutesVsBoulders(getRoutesVsBoulder(filteredAscentList))
     setTriesByGrade(getTriesByGrade(filteredAscentList))
+    setMaxAndAverageGradeBySeason(
+      getMaxAndAverageGradeBySeason(filteredAscentList)
+    )
   }, [filteredAscentList])
 
   useEffect(() => {
@@ -85,7 +92,7 @@ export default function DashboardPage() {
     selectedNumberOfTries,
   ])
 
-  window.console.log(triesByGrade)
+  window.console.log(maxAndAverageGradeBySeason)
 
   return (
     <>
@@ -198,6 +205,14 @@ export default function DashboardPage() {
             y={triesByGrade.y}
             title={triesByGrade.title}
             stacking={triesByGrade.stacking}
+          />
+        )}
+        {!isObjectEmpty(maxAndAverageGradeBySeason) && (
+          <Chart
+            x={maxAndAverageGradeBySeason.x}
+            y={maxAndAverageGradeBySeason.y}
+            title={maxAndAverageGradeBySeason.title}
+            stacking={maxAndAverageGradeBySeason.stacking}
           />
         )}
       </div>
