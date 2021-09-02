@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react'
 import AscentTable from '../components/AscentTable'
 import Chart from '../components/Chart'
 import { isObjectEmpty } from '../utilities/utilities'
-import getAscentsByGradeByStyle from '../analysis/ascentsByGradeByStyle'
+import getAscentsByGradeByStyle from '../analysis/ascentsByGradeByStyle.ts'
 import getAscentsBySeasonByGrade from '../analysis/ascentsBySeasonByGrade'
 import getRoutesVsBoulderBySeason from '../analysis/routesVsBouldersBySeason'
 import getAscentsByStyle from '../analysis/ascentsByStyle'
@@ -103,6 +103,7 @@ export default function DashboardPage() {
             name="Season"
             id="Season"
             onChange={(event) => setSelectedSeason(event.target.value)}
+            onBlur={(event) => setSelectedSeason(event.target.value)}
           >
             <option value="">All</option>
             {!!availableSeasons.length &&
@@ -119,6 +120,7 @@ export default function DashboardPage() {
             name="Grade"
             id="Grade"
             onChange={(event) => setSelectedGrade(event.target.value)}
+            onBlur={(event) => setSelectedGrade(event.target.value)}
           >
             <option value="">All</option>
             {!!availableGrades.length &&
@@ -135,6 +137,7 @@ export default function DashboardPage() {
             name="NumberOfTries"
             id="NumberOfTries"
             onChange={(event) => setSelectedNumberOfTries(event.target.value)}
+            onBlur={(event) => setSelectedNumberOfTries(event.target.value)}
           >
             <option value="">All</option>
             {!!availableNumberOfTries.length &&
@@ -151,6 +154,7 @@ export default function DashboardPage() {
             name="routeOrBoulder"
             id="routeOrBoulder"
             onChange={(event) => setSelectedRouteOrBoulder(event.target.value)}
+            onBlur={(event) => setSelectedRouteOrBoulder(event.target.value)}
           >
             <option value="">All</option>
             <option value="route">Route</option>

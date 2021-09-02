@@ -1,7 +1,10 @@
+/* eslint-disable import/extensions */
 import { getGradesFromAscentList } from '../utilities/utilities'
 import { getStyleColor } from '../utilities/colors'
+import { Ascent } from '../types/Ascent'
+import { GraphOptions } from '../types/GraphOptions'
 
-export default (ascentList) => {
+const getAscentByGradeByStyle = ((ascentList: Ascent[]) => {
   const x = getGradesFromAscentList(ascentList)
   const firstGo = x.map(
     (grade) =>
@@ -40,4 +43,6 @@ export default (ascentList) => {
     title: 'Number of Ascents by Grade by Style',
     stacking: 'normal',
   }
-}
+}) as GraphOptions
+
+export default getAscentByGradeByStyle
