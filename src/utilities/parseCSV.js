@@ -12,7 +12,9 @@ export default (file) =>
       quoteChar: '"',
       escapeChar: '\\',
       trim: true,
+      // resolves the promise when complete
       complete: resolve,
+      // rejects the promise when an error occurs
       error: reject,
     })
   })

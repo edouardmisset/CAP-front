@@ -12,6 +12,7 @@ export default function FormPage() {
   const [csvData, setCsvData] = useState([])
   const { addToast } = useToasts()
 
+  // Make use of useForm to handle the form update, its data and the submission.
   const { register, handleSubmit } = useForm({
     defaultValues: {
       routeName: '',
@@ -24,6 +25,11 @@ export default function FormPage() {
     },
   })
 
+  /**
+   * @description Handles the CSV's parsing.
+   * @date 08/09/2021
+   * @param {*} [file]
+   */
   const handleFile = async ([file]) => {
     setCsvData(
       (await parseCSV(file)).data.map((ascent) => ({
@@ -33,6 +39,7 @@ export default function FormPage() {
         crag: ascent.Crag,
         climber: ascent.Climber,
         routeOrBoulder: ascent['Route / Boulder'].toLowerCase(),
+        // Remove the text contained in this field using a regex.
         numberOfTries: parseInt(
           ascent['# Tries'].replace(/([ A-Za-z])\w+/g, ''),
           10
@@ -41,6 +48,12 @@ export default function FormPage() {
     )
   }
 
+  /**
+   * @description Handles the form submission.
+   * While the form is submitting, it will display a 'is Loading message'.
+   * @date 08/09/2021
+   * @param {*} data
+   */
   function sendAscents(data) {
     setSubmitting(true)
     API.post('/ascents', data)
@@ -50,7 +63,7 @@ export default function FormPage() {
         })
       })
       .catch((error) => {
-        addToast('A problem occured. We could not reccord this accent. 😕', {
+        addToast('A error occured 💥. We could not reccord this accent. 😕', {
           appearance: 'error',
         })
         window.console.error(error)
@@ -62,6 +75,7 @@ export default function FormPage() {
     sendAscents([data])
   }
 
+  // This is a workaround to submit the content of the CSV when the user has selected a valid file.
   useEffect(() => {
     if (csvData.length > 0) {
       sendAscents(csvData)
