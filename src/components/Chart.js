@@ -2,8 +2,9 @@ import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import { graphOptions } from '../utilities/graphHelper'
 
-export default function Chart({ x, y, title = '', stacking = undefined }) {
-  const setChartData = (xChart, yChart, chartTitle) => ({
+// Create a new chart using Highcharts and the default options from the graphHelper.js and props
+export default function Chart({ x, y, title = '', stacking = null }) {
+  const setChartData = (xChart, yChart, chartTitle, chartStacking) => ({
     ...graphOptions,
     chart: {
       ...graphOptions.chart,
@@ -23,7 +24,7 @@ export default function Chart({ x, y, title = '', stacking = undefined }) {
       ...graphOptions.plotOptions,
       column: {
         ...graphOptions.plotOptions.column,
-        stacking,
+        stacking: chartStacking,
       },
     },
   })
