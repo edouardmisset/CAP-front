@@ -1,3 +1,9 @@
+/**
+ * @description Returns the color for the given grade
+ * @date 08/09/2021
+ * @param {string} grade
+ * @return {string} color
+ */
 const getGradeColor = (grade) => {
   switch (grade) {
     case '6a':
@@ -53,6 +59,12 @@ const getGradeColor = (grade) => {
   }
 }
 
+/**
+ * @description Returns the color for boulder or route
+ * @date 08/09/2021
+ * @param {string} routeOrBoulder
+ * @return {string} color
+ */
 const getRouteBoulderColor = (routeOrBoulder) => {
   switch (routeOrBoulder) {
     case 'route':
@@ -64,6 +76,12 @@ const getRouteBoulderColor = (routeOrBoulder) => {
   }
 }
 
+/**
+ * @description Returns the color for the given ascent style
+ * @date 08/09/2021
+ * @param {string} style
+ * @return {string} color
+ */
 const getStyleColor = (style) => {
   switch (style) {
     case 'twoAndMore':
