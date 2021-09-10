@@ -9,7 +9,7 @@ export default function Header() {
       <q>There’s no such thing as too much power!</q>
       <span className="author">
         ~ W. Güllich
-        <span ariaLabel="strong" role="img">
+        <span aria-label="strong" role="img">
           💪
         </span>
       </span>
