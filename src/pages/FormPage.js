@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-autofocus */
-import dayjs from 'dayjs'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useToasts } from 'react-toast-notifications'
@@ -15,13 +13,9 @@ export default function FormPage() {
   // Make use of useForm to handle the form update, its data and the submission.
   const { register, handleSubmit } = useForm({
     defaultValues: {
-      routeName: '',
-      topoGrade: '',
       numberOfTries: 1,
       routeOrBoulder: 'route',
-      crag: '',
-      climber: '',
-      date: dayjs(new Date()).format('YYYY-MM-DD'),
+      date: new Date().toISOString().split('T')[0],
     },
   })
 
@@ -63,7 +57,7 @@ export default function FormPage() {
         })
       })
       .catch((error) => {
-        addToast('A error occured 💥. We could not reccord this accent. 😕', {
+        addToast('A error occured 💥. We could not reccord your accent. 😕', {
           appearance: 'error',
         })
         window.console.error(error)
@@ -71,9 +65,7 @@ export default function FormPage() {
       .finally(() => setSubmitting(false))
   }
 
-  const onSubmit = (data) => {
-    sendAscents([data])
-  }
+  const onSubmit = (data) => sendAscents([data])
 
   // This is a workaround to submit the content of the CSV when the user has selected a valid file.
   useEffect(() => {
@@ -91,7 +83,6 @@ export default function FormPage() {
             {...register('routeName', {
               required: { value: true, message: 'required' },
             })}
-            autoFocus
             placeholder="Biographie"
             disabled={submitting}
             className="form-input"
@@ -108,6 +99,26 @@ export default function FormPage() {
             className="form-input"
           />
         </label>
+        <label className="label" htmlFor="date">
+          Date
+          <input
+            {...register('date', {
+              required: { value: true, message: 'required' },
+            })}
+            type="date"
+            disabled={submitting}
+            className="form-input"
+          />
+        </label>
+        <label className="label" htmlFor="personalGrade">
+          Personal Grade
+          <input
+            {...register('personalGrade')}
+            placeholder="9a"
+            disabled={submitting}
+            className="form-input"
+          />
+        </label>
         <label className="label" htmlFor="numberOfTries">
           Number of tries
           <input
@@ -120,16 +131,47 @@ export default function FormPage() {
               },
             })}
             type="number"
-            placeholder="3"
             disabled={submitting}
             className="form-input"
           />
         </label>
         <label className="label" htmlFor="routeOrBoulder">
           Route or Boulder
-          <select {...register('routeOrBoulder')} defaultValue="route">
+          <select {...register('routeOrBoulder')} disabled={submitting}>
             <option value="route">Route</option>
             <option value="boulder">Boulder</option>
+          </select>
+        </label>
+        <label className="label" htmlFor="height">
+          Height
+          <input
+            {...register('height')}
+            type="number"
+            placeholder="30"
+            disabled={submitting}
+            className="form-input"
+          />
+        </label>
+        <label className="label" htmlFor="profile">
+          Profile
+          <select {...register('profile')} disabled={submitting}>
+            <option value="">-</option>
+            <option value="vertical">Vertical</option>
+            <option value="slight-overhang">Slight Overhang</option>
+            <option value="slab">Slab</option>
+            <option value="overhang">Overhang</option>
+            <option value="roof">Roof</option>
+            <option value="traverse">Traverse</option>
+          </select>
+        </label>
+        <label className="label" htmlFor="holds">
+          Holds
+          <select {...register('holds')} disabled={submitting}>
+            <option value="">-</option>
+            <option value="crimps">Crimps</option>
+            <option value="jugs">Jugs</option>
+            <option value="pinches">Pinches</option>
+            <option value="sloppers">Sloppers</option>
           </select>
         </label>
         <label className="label" htmlFor="crag">
@@ -144,6 +186,26 @@ export default function FormPage() {
             className="form-input"
           />
         </label>
+        <label className="label" htmlFor="sector">
+          Sector
+          <input
+            {...register('sector')}
+            type="text"
+            placeholder="Cascade"
+            disabled={submitting}
+            className="form-input"
+          />
+        </label>
+        <label className="label" htmlFor="region">
+          Region
+          <input
+            {...register('region')}
+            type="text"
+            placeholder="Hautes-Alpes"
+            disabled={submitting}
+            className="form-input"
+          />
+        </label>
         <label className="label" htmlFor="climber">
           Climber
           <input
@@ -151,22 +213,12 @@ export default function FormPage() {
               required: { value: true, message: 'required' },
             })}
             type="text"
-            placeholder="Chris Sharma"
+            placeholder="John Doe"
             disabled={submitting}
             className="form-input"
           />
         </label>
-        <label className="label" htmlFor="date">
-          Date
-          <input
-            {...register('date', {
-              required: { value: true, message: 'required' },
-            })}
-            type="date"
-            disabled={submitting}
-            className="form-input"
-          />
-        </label>
+
         <button
           type="submit"
           disabled={submitting}

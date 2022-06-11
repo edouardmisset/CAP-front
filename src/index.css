@@ -172,14 +172,13 @@ header {
 form {
   display: flex;
   flex-direction: column;
-  width: clamp(40ch, 50%, 80ch);
+  width: clamp(40ch, 100%, 80ch);
   gap: 1rem;
 }
 
 form > label {
   display: flex;
   justify-content: space-between;
-  /* margin: 0.5rem 0; */
 }
 
 /* ================
@@ -229,7 +228,7 @@ form {
 
 .label > input,
 .label > select {
-  width: clamp(15ch, 40%, 30ch);
+  width: clamp(15ch, 80%, 30ch);
 }
 
 /** Button */

@@ -92,8 +92,6 @@ export default function DashboardPage() {
     selectedNumberOfTries,
   ])
 
-  window.console.log(maxAndAverageGradeBySeason)
-
   return (
     <>
       <div className="table-filter">
